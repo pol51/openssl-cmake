@@ -72,5 +72,5 @@ function(set_vcvarsall_command COMMAND)
         set(${COMMAND} "")
     endif()
 
-    return(PROPAGATE ${COMMAND})
+    set(${COMMAND} ${${COMMAND}} PARENT_SCOPE)
 endfunction()

@@ -19,14 +19,14 @@ function(parse_configdata FILE KEY VALUES)
         string(REPLACE " " ";" ${VALUES} ${FULL_OPTIONS})
     endif()
 
-    return(PROPAGATE ${VALUES})
+    set(${VALUES} ${${VALUES}} PARENT_SCOPE)
 endfunction()
 
 function(lookup_makefile STRING KEY VALUES)
     string(REGEX MATCH "\n${KEY}=[^\n]*" OUTPUT "${STRING}")
     string(REGEX REPLACE "\n${KEY}=[ ]*" "" ${VALUES} "${OUTPUT}")
 
-    return(PROPAGATE ${VALUES})
+    set(${VALUES} ${${VALUES}} PARENT_SCOPE)
 endfunction()
 
 function(parse_makefile FILE KEY VALUES)
@@ -55,7 +55,7 @@ function(parse_makefile FILE KEY VALUES)
     string(REGEX REPLACE "[ ]+" ";" ${VALUES} "${OUTPUT}")
     list(REMOVE_ITEM ${VALUES} "")
 
-    return(PROPAGATE ${VALUES})
+    set(${VALUES} ${${VALUES}} PARENT_SCOPE)
 endfunction()
 
 function(apply_ccache FILE)
