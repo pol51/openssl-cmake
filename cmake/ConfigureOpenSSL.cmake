@@ -125,13 +125,18 @@ function(configure_openssl)
         COMMAND_ERROR_IS_FATAL ANY
     )
     
-    message(STATUS "supported platforms:")
-    message(STATUS "${PLATFORM_LIST}")
-    
     string(REPLACE "\n" ";" PLATFORM_LIST ${PLATFORM_LIST})
     list(GET CONFIGURE_OPTIONS 0 TARGET_PLATFORM)
 
+    if (${TARGET_PLATFORM} STREQUAL "linux-armv7-a")
+        set(TARGET_PLATFORM linux-generic32)
+    endif()
+
     if(NOT TARGET_PLATFORM IN_LIST PLATFORM_LIST)
+        message(STATUS "supported platforms:")
+        foreach(PLATFORM PLATFORM_LIST)
+            message(STATUS "${PLATFORM_LIST}")
+        endforeach()
         message(FATAL_ERROR "${TARGET_PLATFORM} isn't supported")
     endif()
 
