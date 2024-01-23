@@ -124,6 +124,10 @@ function(configure_openssl)
         OUTPUT_VARIABLE PLATFORM_LIST
         COMMAND_ERROR_IS_FATAL ANY
     )
+    
+    message(STATUS "supported platforms:")
+    message(STATUS "${PLATFORM_LIST}")
+    
     string(REPLACE "\n" ";" PLATFORM_LIST ${PLATFORM_LIST})
     list(GET CONFIGURE_OPTIONS 0 TARGET_PLATFORM)
 
